@@ -28,6 +28,62 @@
 <script src="<?= Base_url("template/") ?>js/template.js"></script>
 <script src="<?= Base_url("template/") ?>js/settings.js"></script>
 <script src="<?= Base_url("template/") ?>js/todolist.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var html = '<tr><td><input type="text" name="txtFullname[]" class="form-control" required=""></td><td><input type="text" name="txtEmail[]" class="form-control" required=""></td><td><input type="text" name="txtPhone[]" class="form-control" required=""></td><td><input type="text" name="txtAddress[]" class="form-control" required=""></td><td><input type="button" id="remove" name="remove" value="remove" class="btn btn-danger"></td></tr>';
+  
+    var x = 1;
+
+    $("#add").click(function(){
+      $("#table_field").append(html);
+    });
+
+    $("#table_field").on('click', '#remove', function(){
+      $(this).closest('tr').remove();
+    });
+
+  });
+
+</script>
+
+<script>
+
+
+
+$("#kjh").click(function(){
+
+  var member = document.getElementById("member");
+  var stateless = document.getElementById("stateless");
+
+  var titles = $('.sdf=value').map(function(idx, elem) {
+    return $(elem).val();
+  }).get();
+
+  console.log(titles);
+  event.preventDefault();
+
+  $.ajax({
+      type: "POST",
+      url: "http://localhost/storecashier/product/ajax.php",
+      data: {
+        tambah : member.value,
+        mulai : stateless.value
+      },
+      dataType: "json",
+      success: function (data) {
+        // alert(data)
+        $("#container").html(data);
+        stateless.value = member.value + stateless.value
+      },
+      error() {
+        alert("ERROR");
+      },
+    });
+
+});
+</script>
 <!-- endinject -->
 <!-- Custom js for this page-->
 <!-- End custom js for this page-->
