@@ -38,27 +38,41 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th>
-                        Nama Produk
-                      </th>
-                      <th>
-                        Nama Singkat
-                      </th>
-                      <th>
-                        Harga
-                      </th>
-                      <th>
-                        Aksi
-                      </th>
+                      <th>Nama Produk</th>
+                      <th>Nama Singkat</th>
+                      <th>Barcode</th>
+                      <th>Harga</th>
+                      <th> Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <?php 
+                    $products = querybanyak("SELECT products.id as id, products.name_product as name_product, products.abbreviation as abbreviation, products.barcode as barcode, productprices.umum as umum  FROM products 
+                    LEFT JOIN productprices ON products.id = productprices.product_id 
+                    WHERE productprices.type = 'default'
+                    LIMIT 20");
+
+                    foreach($products as $product){
+                    ?>
                     <tr>
-                      <td>1</td>
-                      <td>2</td>
-                      <td>3</td>
-                      <td>4</td>
+                      <td><?= $product['name_product'] ?></td>
+                      <td><?= $product['abbreviation'] ?></td>
+                      <td><?= $product['barcode'] ?></td>
+                      <td><?= $product['umum'] ?></td>
+                      <td>
+                        <a href="<?= Base_url("index.php?page=products_edit&product_id=") ?><?= $product['id'] ?>" class="btn btn-sm btn-success" >
+                          <i class="mdi mdi-grease-pencil"></i>
+                        </a>
+
+                        <a href="" class="btn btn-sm btn-success" >
+                          <i class="mdi mdi-eye"></i>
+                        </a>
+                      </td>
                     </tr>
+                    <?php
+                    }
+
+                    ?>
                   </tbody>
                 </table>
               </div>

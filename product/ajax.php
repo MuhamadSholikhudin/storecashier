@@ -1,26 +1,18 @@
 <?php
+include '../function.php';
 
-if (isset($_POST['tambah'])) {
+if(isset($_POST['name_product']) AND isset($_POST['barcode']) AND isset($_POST['abbreviation'])){
 
-    $tambah = $_POST['tambah'];
-    $mulai = $_POST['mulai'];
+    $created_at = date("Y-m-d H:i:s");
 
-    $berakhir = $mulai  +  $tambah;
+    $updated_at = $created_at;
 
-    $harga_loop = '';
+    $query = "INSERT INTO products (name_product, abbreviation, barcode, created_at, updated_at) VALUES 
+    (
+        '".$_POST['name_product']."', '".$_POST['abbreviation']."', '".$_POST['barcode']."', '".$created_at."', '".$updated_at."'
+    )";
 
-    for ($y = $mulai; $y < $berakhir; $y++) {
+    mysqli_query($koneksi, $query);
 
-        $harga_loop .= '
-            <input type="number" name="awal[]" style="width:70px;" required>
-            <input type="number" name="akhir[]" style="width:70px;" required>
-            <input type="number" name="umum[]" style="width:100px;" required>
-            <input type="number" name="pelanggan[]" style="width:100px;" required>
-            <br>
-            
-        ';
-    }
-
-
-    echo json_encode($harga_loop);
+   echo json_encode($query);
 }
