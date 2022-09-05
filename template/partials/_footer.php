@@ -103,6 +103,46 @@
       }
     });
 
+
+    $("#editproduct").click(function(){
+      var product_id = document.getElementById("product_id");
+      var name_product = document.getElementById("name_product");
+      var abbreviation = document.getElementById("abbreviation");
+      var barcode = document.getElementById("barcode");
+
+      if (name_product.value == "" || abbreviation.value == "" || barcode.value == "") {
+        alert("Inputan Harus Di isi !");
+        return false;
+      }else{
+
+        // alert(product_id.value + name_product.value + )
+        
+        $.ajax({
+          type: "POST",
+          url: "http://localhost/storecashier/product/ajax.php",
+          data: {
+            product_id: product_id.value,
+            name_product: name_product.value,
+            abbreviation : abbreviation.value,
+            barcode: barcode.value,
+          },
+          dataType: "json",
+          success: function (data) {
+          //  alert(data);
+            $("#save").click();
+
+          },
+          error() {
+            alert("ERROR");
+          },
+        });
+
+        
+      }
+    });
+
+
+
   });
 
 </script>

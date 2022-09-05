@@ -19,6 +19,7 @@
               </p>
                 <div class="form-group">
                   <label for="name_product">Nama Produk</label>
+                  <input type="text" class="form-control" id="product_id" name="product_id" value="<?= $_GET['product_id'] ?>" placeholder="Product ID" required>
                   <input type="text" class="form-control" id="name_product" name="name_product" value="<?= $product['name_product'] ?>" placeholder="Nama Produk" required>
                 </div>
                 <div class="form-group">
@@ -82,7 +83,7 @@
               </form>
 
               <center>
-                <button id="saveproduct" class="btn btn-light">Save</button>
+                <button id="editproduct" class="btn btn-light">Save</button>
               </center>
 
               <div id="container">
