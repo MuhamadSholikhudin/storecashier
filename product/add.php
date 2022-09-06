@@ -76,7 +76,10 @@
                   <td><input type="text" name="awal[]" class="form-control awal" min="1" value="1" required=""></td>
                   <td><input type="number" name="akhir[]" class="form-control akhir" min="1" value="1" required=""></td>
                   <td><input type="number" name="umum[]" class="form-control umum" min="1" value="1" required=""></td>
-                  <td><input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required=""></td>
+                  <td>
+                    <input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required="">
+                    <input type="text" name="type[]" class="form-control type d-none" value="default" required="">
+                  </td>
                   <td><input type="button" id="add" name="add" value="+" class="btn btn-success"></td>
                 </tr>
               </table>

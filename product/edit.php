@@ -19,7 +19,7 @@
               </p>
                 <div class="form-group">
                   <label for="name_product">Nama Produk</label>
-                  <input type="text" class="form-control" id="product_id" name="product_id" value="<?= $_GET['product_id'] ?>" placeholder="Product ID" required>
+                  <input type="text" class="form-control d-none" id="product_id" name="product_id" value="<?= $_GET['product_id'] ?>" placeholder="Product ID" required>
                   <input type="text" class="form-control" id="name_product" name="name_product" value="<?= $product['name_product'] ?>" placeholder="Nama Produk" required>
                 </div>
                 <div class="form-group">
@@ -58,9 +58,10 @@
                   $prices = querybanyak("SELECT * FROM productprices WHERE product_id = ".$_GET['product_id']."");
                   foreach($prices as $price){
                 ?>
-                <tr>
+                <tr >
                   <td>
                     <input type="number" name="product_id[]" class="form-control product_id d-none" min="1" value="<?= $price['product_id'] ?>" required="">
+                    <input type="number" name="price_id[]" class="form-control product_id d-none" min="1" value="<?= $price['id'] ?>" required="">
                     <input type="number" name="awal[]" class="form-control awal" min="1" value="<?= $price['awal'] ?>" required="">
                   </td>
                   <td><input type="number" name="akhir[]" class="form-control akhir" min="1" value="<?= $price['akhir'] ?>" required=""></td>
@@ -70,7 +71,7 @@
                     <?php if($price['type'] == 'default'){ ?>
                       <input type="button" id="addedit" name="addedit" value="+" class="btn btn-success">
                     <?php }else{ ?>
-                      <input type="button" id="removeedit" name="removeedit" value="-" class="btn btn-danger">
+                      <input type="button" id="removeedit" name="removeedit" value="-" data-id="<?= $price['id'] ?>" class="btn btn-danger">
                     <?php }?>
                   </td>
                 </tr>
@@ -78,7 +79,7 @@
                   }
                 ?>
               </table>
-              <input class="btn btn-warning d-none" type="submit" name="save" id="save" value="Save Data">
+              <input class="btn btn-warning d-none" type="submit" name="edit" id="save" value="updateprices">
 
               </form>
 

@@ -15,6 +15,13 @@ if (isset($_POST['product_id'])) {
 
     mysqli_query($koneksi, $query);
     echo json_encode($query);
+}
+elseif(isset($_POST['price_id'])){
+
+    $query = "DELETE FROM productprices WHERE id = ".$_POST['price_id']."";
+    mysqli_query($koneksi, $query);
+    echo json_encode($query);
+        
 }elseif (isset($_POST['name_product']) && isset($_POST['barcode']) && isset($_POST['abbreviation'])) {
 
     $created_at = date("Y-m-d H:i:s");

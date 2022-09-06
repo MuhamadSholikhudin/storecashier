@@ -17,6 +17,10 @@ if (isset($_GET['page'])) {
             Page("product/edit.php");
             break;
 
+        case 'transactions':
+                Page("transactions/index.php");
+                break;
+
         default:
         Page("product/add.php");
 

@@ -37,7 +37,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
 
-    var html = '<tr><td><input type="number" name="awal[]" class="form-control awal" min="1" value="1" required=""></td><td><input type="number" name="akhir[]" class="form-control akhir" min="1" value="1" required=""></td><td><input type="number" name="umum[]" class="form-control umum" min="1" value="1" required=""></td><td><input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required=""></td><td><input type="button" id="remove" name="remove" value="-" class="btn btn-danger"></td></tr>';
+    var html = '<tr><td><input type="number" name="awal[]" class="form-control awal" min="1" value="1" required=""></td><td><input type="number" name="akhir[]" class="form-control akhir" min="1" value="1" required=""></td><td><input type="number" name="umum[]" class="form-control umum" min="1" value="1" required=""></td><td><input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required=""><input type="text" name="type[]" class="form-control type d-none" value="extend" required=""></td><td><input type="button" id="remove" name="remove" value="-" class="btn btn-danger"></td></tr>';
     var x = 1;
 
     $("#add").click(function(){
@@ -48,14 +48,6 @@
       $(this).closest('tr').remove();
     });
 
-    var htmledit = '<tr><td><input type="number" name="product_id[]" class="form-control d-none product_id" value="0" required=""><input type="number" name="awal[]" class="form-control awal" min="1" value="1" required=""></td><td><input type="number" name="akhir[]" class="form-control akhir" min="1" value="1" required=""></td><td><input type="number" name="umum[]" class="form-control umum" min="1" value="1" required=""></td><td><input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required=""></td><td><input type="button" id="remove" name="remove" value="-" class="btn btn-danger"></td></tr>';
-    $("#addedit").click(function(){
-      $("#table_field").append(htmledit);
-    });
-
-    $("#table_field").on('click', '#removeedit', function(){
-      $(this).closest('tr').remove();
-    });
 
     function validateForm() {
       let name_product = document.forms["myAddProduct"]["name_product"].value;
@@ -103,6 +95,35 @@
       }
     });
 
+    var htmledit = '<tr><td><input type="number" name="product_id[]" class="form-control d-none product_id" value="0" required=""><input type="number" name="price_id[]" class="form-control d-none price_id" value="0" required=""><input type="number" name="awal[]" class="form-control awal" min="1" value="1" required=""></td><td><input type="number" name="akhir[]" class="form-control akhir" min="1" value="1" required=""></td><td><input type="number" name="umum[]" class="form-control umum" min="1" value="1" required=""></td><td><input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required=""></td><td><input type="button" id="removeedit" name="removeedit" value="-" data-id="0" class="btn btn-danger"></td></tr>';
+    $("#addedit").click(function(){
+      $("#table_field").append(htmledit);
+    });
+
+    $("#table_field").on('click', '#removeedit', function(){
+      var price_id = $(this).data('id');
+
+      if(price_id == 0){
+        $(this).closest('tr').remove();
+      }else{
+        $.ajax({
+          type: "POST",
+          url: "http://localhost/storecashier/product/ajax.php",
+          data: {
+            price_id: price_id
+          },
+          dataType: "json",
+          success: function (data) {
+
+          },
+          error() {
+            alert("ERROR");
+          },
+        });
+        $(this).closest('tr').remove();
+
+      }
+    });
 
     $("#editproduct").click(function(){
       var product_id = document.getElementById("product_id");
