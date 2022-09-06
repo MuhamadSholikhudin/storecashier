@@ -78,3 +78,15 @@ if (isset($_POST)) {
 
     }
 }
+
+/*
+storecashiers
+root
+5nB]v{#MKH=_pZS[
+
+
+
+# HTID:20375020: DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES BELOW
+php_value display_errors 1
+# DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:20375020:
+*/

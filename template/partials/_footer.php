@@ -76,7 +76,7 @@
       }else{
         $.ajax({
           type: "POST",
-          url: "http://localhost/storecashier/product/ajax.php",
+          url: "<?= Base_url('') ?>product/ajax.php",
           data: {
             name_product: name_product.value,
             abbreviation : abbreviation.value,
@@ -108,7 +108,7 @@
       }else{
         $.ajax({
           type: "POST",
-          url: "http://localhost/storecashier/product/ajax.php",
+          url: "<?= Base_url('') ?>product/ajax.php",
           data: {
             price_id: price_id
           },
@@ -140,7 +140,7 @@
         
         $.ajax({
           type: "POST",
-          url: "http://localhost/storecashier/product/ajax.php",
+          url: "<?= Base_url('') ?>/product/ajax.php",
           data: {
             product_id: product_id.value,
             name_product: name_product.value,
@@ -161,8 +161,6 @@
         
       }
     });
-
-
 
   });
 
@@ -316,7 +314,35 @@
 
 <script>
 
+function myFunction() {
 
+  var keyword = document.getElementById("searchproducttransactions").value;
+  
+  if(keyword == ""){
+    alert("KOSONG");
+
+  }else{
+
+    $.ajax({
+        type: "POST",
+        url: "<?= Base_url('') ?>/transactions/ajax.php",
+        data: {
+          keyword : keyword
+        },
+        dataType: "json",
+        success: function (data) {
+
+          alert(data)
+        },
+        error() {
+          alert("ERROR");
+        },
+      });
+
+
+  }
+
+}
 
   $("#kjh").click(function(){
 
@@ -332,7 +358,7 @@
 
     $.ajax({
         type: "POST",
-        url: "http://localhost/storecashier/product/ajax.php",
+        url: "<?= Base_url('') ?>/product/ajax.php",
         data: {
           tambah : member.value,
           mulai : stateless.value

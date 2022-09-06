@@ -21,6 +21,10 @@ if (isset($_GET['page'])) {
                 Page("transactions/index.php");
                 break;
 
+                case 'transactions_add':
+                    Page("transactions/add.php");
+                    break;
+
         default:
         Page("product/add.php");
 

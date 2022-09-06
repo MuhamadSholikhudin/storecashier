@@ -6,13 +6,13 @@
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Data Produk
+              <h4 class="card-title">Data Transaksi
                 &nbsp;
                 &nbsp;
                 &nbsp;
                 &nbsp;
 
-              <a href="<?= Base_url("index.php?page=products_add") ?>" class="btn btn-sm btn-outline-secondary">
+              <a href="<?= Base_url("index.php?page=transactions_add") ?>" class="btn btn-sm btn-outline-secondary">
                   <i class="mdi mdi-library-plus"></i>
                   Tambah
               </a>
