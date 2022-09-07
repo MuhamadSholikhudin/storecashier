@@ -9,6 +9,8 @@
               <h4 class="card-title">Produk form</h4>
               <p class="card-description">
                 Isi Data Transaksi Dengan Benar
+
+                <input type="text" name="" id="transaction_id" value="0">
               </p>
               <div class="form-group">
                 <div class="input-group">
@@ -19,15 +21,15 @@
                 </div>
               </div>
 
-              <table >
-                <tr>
+              <table id="tablesearch">
+                <!-- <tr>
                   <td><input type="number" class="form-control" name="price_id" id="searchprice_id"></td>
                   <td><input type="number" class="form-control" name="qty" min="1" id="search"></td>
                   <td><input type="number" class="form-control" name="price_default" id="searchprice_default"></td>
                   <td><input type="number" class="form-control d-none" name="transaction_id" id="searchtransaction_id">
                       <input type="button" name="addtransactions" id="addtransactions" value="+">
                   </td>
-                </tr>
+                </tr> -->
               </table>
 
             </div>
@@ -42,26 +44,15 @@
               <h4 class="card-title">List Belanja</h4>
               <p class="card-description">
               <form name="myAddProduct" class="forms-sample" action="<?= Base_url("product/action.php") ?>" method="POST" enctype="multipart/form-data">
-                <table id="table_field">
+                <table id="table_field_transactions">
                   <tr>
                     <th>Nama</th>
                     <th>Qty</th>
                     <th>Harga</th>
+                    <th>Cek</th>
                     <th>Jumlah</th>
                     <th>Action</th>
                   </tr>
-                  <tr>
-                    <td><input type="text" name="awal[]" class="form-control awal" min="1" value="1" required=""></td>
-                    <td><input type="number" name="akhir[]" class="form-control akhir" min="1" value="1" required=""></td>
-                    <td><input type="number" name="umum[]" class="form-control umum" min="1" value="1" required=""></td>
-                    <td>
-                      <input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required="">
-                      <input type="text" name="type[]" class="form-control type d-none" value="default" required="">
-                    </td>
-                    <td><input type="button" id="add" name="add" value="X"></td>
-                  </tr>
-
-
                   <tfoot>
                     <tr>
                       <td>
