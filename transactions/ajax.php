@@ -61,3 +61,24 @@ if(isset($_POST['keyword'])){
     echo json_encode($data);
     // echo json_encode(1);
 }
+
+elseif(isset($_POST['transaction_id']) and isset($_POST['price_id'])){
+
+    if($_POST['transaction_id'] == 0){
+
+        $query_insert = "INSERT INTO `transactions`(`id`, `transaction_date`, `name_buyer`, `type_buyer`, `total`, `cash`, `change`, `created_at`, `updated_at`) VALUES 
+        ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]')";
+
+        $data =  $query_insert;
+
+    }else{
+
+        $query_update = "UPDATE `transactions` SET `id`='[value-1]',`transaction_date`='[value-2]',`name_buyer`='[value-3]',`type_buyer`='[value-4]',`total`='[value-5]',`cash`='[value-6]',`change`='[value-7]',`created_at`='[value-8]',`updated_at`='[value-9]' WHERE 1";
+
+        $data =  $query_update;
+
+    }
+
+    echo json_encode($data);
+
+}

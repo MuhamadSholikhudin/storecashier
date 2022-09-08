@@ -204,9 +204,7 @@
 
         if (keyword == "") {
           alert("KOSONG");
-
         } else {
-
           $.ajax({
             type: "POST",
             url: "<?= Base_url('') ?>/transactions/ajax.php",
@@ -229,13 +227,31 @@
       $("#tablesearch").on('click', '#addtransactions', function() {
         var price_id = $(this).data('id');
         var name = $(this).data('name');
-        // var transaction_id = $(this).data('name');
+        var transaction_id = document.getElementById("transaction_id").value;
 
-      //  alert(price_id);
+      //  alert(transaction_id);
+        $.ajax({
+            type: "POST",
+            url: "<?= Base_url('') ?>/transactions/ajax.php",
+            data: {
+              transaction_id: transaction_id,
+              price_id: price_id
+            },
+            dataType: "json",
+            success: function(data) {
+              // $("#tablesearch").html(data);
+              alert(data)
+              document.getElementById("transaction_id").value = 1;
+              var htmladdr = '<tr><td>'+name+'</td><td><input type="number" class="form-control qty" id="qty" data-price_id="'+price_id+'" data-transaction_id="'+transaction_id+'" min="1" min="1" value="'+name+'" required=""></td><td><input type="number" name="umum[]" class="form-control umum" min="1" value="1" required=""></td><td class="text-center"><input type="checkbox" name="check[]"  value="extend" required=""> </td><td><input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required=""><input type="text" name="type[]" class="form-control type d-none" value="extend" required=""></td><td><input type="button" id="remove" name="remove" value="-" class="btn btn-danger"></td></tr>';
 
-      var htmladdr = '<tr><td><input type="text" class="form-control" min="1" value="'+name+'" required=""></td><td><input type="number" name="akhir[]" class="form-control akhir" min="1" min="1" value="'+name+'" required=""></td><td><input type="number" name="umum[]" class="form-control umum" min="1" value="1" required=""></td><td class="text-center"><input type="checkbox" name="check[]"  value="extend" required=""> </td><td><input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required=""><input type="text" name="type[]" class="form-control type d-none" value="extend" required=""></td><td><input type="button" id="remove" name="remove" value="-" class="btn btn-danger"></td></tr>';
+              $("#table_field_transactions").append(htmladdr);
+            },
+            error() {
+              alert("ERROR");
+            },
+          });
 
-        $("#table_field_transactions").append(htmladdr);
+
       });
     </script>
 
