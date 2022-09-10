@@ -1,4 +1,6 @@
-<nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+    
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
         <div class="me-3">
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
@@ -6,10 +8,10 @@
           </button>
         </div>
         <div>
-          <a class="navbar-brand brand-logo" href="<?= Base_url("template/") ?>index.html">
+          <a class="navbar-brand brand-logo" href="index.html">
             <img src="<?= Base_url("template/") ?>images/logo.svg" alt="logo" />
           </a>
-          <a class="navbar-brand brand-logo-mini" href="<?= Base_url("template/") ?>index.html">
+          <a class="navbar-brand brand-logo-mini" href="index.html">
             <img src="<?= Base_url("template/") ?>images/logo-mini.svg" alt="logo" />
           </a>
         </div>
@@ -17,11 +19,10 @@
       <div class="navbar-menu-wrapper d-flex align-items-top"> 
         <ul class="navbar-nav">
           <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-            <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">Every Body</span></h1>
-            <h3 class="welcome-sub-text">Dibawah Ini Adalah Data yang anda kelola</h3>
+            <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">John Doe</span></h1>
+            <h3 class="welcome-sub-text">Your performance summary this week </h3>
           </li>
         </ul>
-        <!--
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown d-none d-lg-block">
             <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false"> Select Category </a>
@@ -165,17 +166,9 @@
             </div>
           </li>
         </ul>
-
-        -->
-
-        <!--
-
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
           <span class="mdi mdi-menu"></span>
         </button>
-
-        -->
-
       </div>
     </nav>
 

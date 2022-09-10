@@ -10,7 +10,13 @@
               <p class="card-description">
                 Isi Data Transaksi Dengan Benar
 
-                <input type="text" name="" id="transaction_id" value="0">
+                <input type="text"  class="form-control" name="" id="transaction_id" value="0">
+                <input type="text"  class="form-control" name="" id="name_buyer" value="0">
+
+                <select name="" id="type_buyer" class="form-control" >
+                  <option value="umum">umum</option>
+                  <option value="pelanggan">pelanggan</option>
+                </select>
               </p>
               <div class="form-group">
                 <div class="input-group">
@@ -44,7 +50,7 @@
               <h4 class="card-title">List Belanja</h4>
               <p class="card-description">
               <form name="myAddProduct" class="forms-sample" action="<?= Base_url("product/action.php") ?>" method="POST" enctype="multipart/form-data">
-                <table id="table_field_transactions">
+                <table id="table_field_transactions" class="table-responsive">
                   <tr>
                     <th>Nama</th>
                     <th>Qty</th>
@@ -59,11 +65,10 @@
                       </td>
                       <td>
                       </td>
-
                       <td>
                         Total
                       </td>
-                      <td> Rp 1000,00</td>
+                      <td ><span  id="total_transactions"> </span> </td>
                       <td>
                       </td>
                     </tr>

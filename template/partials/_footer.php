@@ -225,31 +225,65 @@
 
 
       $("#tablesearch").on('click', '#addtransactions', function() {
+
         var price_id = $(this).data('id');
         var name = $(this).data('name');
+
         var transaction_id = document.getElementById("transaction_id").value;
+        var name_buyer = document.getElementById("name_buyer").value;
+        var type_buyer = document.getElementById("type_buyer").value;
 
-      //  alert(transaction_id);
         $.ajax({
-            type: "POST",
-            url: "<?= Base_url('') ?>/transactions/ajax.php",
-            data: {
-              transaction_id: transaction_id,
-              price_id: price_id
-            },
-            dataType: "json",
-            success: function(data) {
-              // $("#tablesearch").html(data);
-              alert(data)
-              document.getElementById("transaction_id").value = 1;
-              var htmladdr = '<tr><td>'+name+'</td><td><input type="number" class="form-control qty" id="qty" data-price_id="'+price_id+'" data-transaction_id="'+transaction_id+'" min="1" min="1" value="'+name+'" required=""></td><td><input type="number" name="umum[]" class="form-control umum" min="1" value="1" required=""></td><td class="text-center"><input type="checkbox" name="check[]"  value="extend" required=""> </td><td><input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required=""><input type="text" name="type[]" class="form-control type d-none" value="extend" required=""></td><td><input type="button" id="remove" name="remove" value="-" class="btn btn-danger"></td></tr>';
+          type: "POST",
+          url: "<?= Base_url('') ?>/transactions/ajax.php",
+          data: {
+            transaction_id: transaction_id,
+            price_id: price_id,
+            name_buyer: name_buyer,
+            type_buyer: type_buyer
+          },
+          dataType: "json",
+          success: function(data) {
+            // $("#tablesearch").html(data);
+            // alert(data)
 
-              $("#table_field_transactions").append(htmladdr);
-            },
-            error() {
-              alert("ERROR");
-            },
-          });
+            document.getElementById("transaction_id").value = data[0];
+            document.getElementById("name_buyer").value = data[1];
+            document.getElementById("type_buyer").value = data[2];
+            document.getElementById("total_transactions").innerHTML = data[6] * data[7] * data[8];
+
+            var htmladdr = '<tr><td>' + name + '</td><td><input type="number" class="form-control qty" id="qty" data-cart_id="' + data[5] + '" data-price_id="' + data[4] + '" data-transaction_id="' + data[0] + '" min="1" min="1" value="' + data[5] + '" required=""></td><td><input type="number" name="price" id="cart_price' + data[5] + '" class="form-control umum" min="1" value="' + data[6] + '" required=""></td><td class="text-center"><input type="checkbox" name="check[]"  class="form-check-input" required=""> </td><td><input type="number" name="" class="form-control" min="1" id="cart_sum_price' + data[5] + '" value="' + data[6] * data[7] + '" required=""><input type="text" name="type[]" class="form-control type d-none" value="extend" required=""></td><td><input type="button" id="remove" name="remove" value="-" class="btn btn-danger"></td></tr>';
+
+
+            $("#table_field_transactions").append(htmladdr);
+          },
+          error() {
+            alert("ERROR");
+          },
+        });
+
+
+        $("#table_field_transactions").on('change', '.qty', function() {
+        
+          var price_id = $(this).data('price_id');
+          var cart_id = $(this).data('cart_id');
+          var transaction_id = $(this).data('transaction_id');
+
+          // alert(price_id + cart_id + transaction_id);
+
+
+          var cart_price = "cart_price"+cart_id;
+          var cart_sum_price = "cart_sum_price"+cart_id;
+
+          console.log(cart_price);
+          console.log(cart_sum_price);
+
+          document.getElementById(cart_price).value = cart_id*100;
+          document.getElementById(cart_sum_price).value = cart_id*200;
+
+
+
+        });
 
 
       });
