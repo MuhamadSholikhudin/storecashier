@@ -25,7 +25,7 @@
                   
                 <div class="form-group">
                     <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Cari Produk" aria-label="Recipient's username">
+                      <input type="text" id="search_product" class="form-control" placeholder="Cari Produk" aria-label="Cari products">
                       <div class="input-group-append">
                         <button class="btn btn-sm btn-primary" type="button">Search</button>
                       </div>
@@ -35,7 +35,7 @@
                 <!-- </code> -->
               </p>
               <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped" id="table_product">
                   <thead>
                     <tr>
                       <th>Nama Produk</th>
@@ -45,11 +45,9 @@
                       <th> Aksi</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="tbody_product">
                     <?php 
-                    $products = querybanyak("SELECT products.id as id, products.name_product as name_product, products.abbreviation as abbreviation, products.barcode as barcode, productprices.umum as umum  FROM products 
-                    LEFT JOIN productprices ON products.id = productprices.product_id 
-                    WHERE productprices.type = 'default'
+                    $products = querybanyak("SELECT * FROM products
                     LIMIT 20");
 
                     foreach($products as $product){
@@ -58,7 +56,7 @@
                       <td><?= $product['name_product'] ?></td>
                       <td><?= $product['abbreviation'] ?></td>
                       <td><?= $product['barcode'] ?></td>
-                      <td><?= $product['umum'] ?></td>
+                      <td><?= $product['price'] ?></td>
                       <td>
                         <a href="<?= Base_url("index.php?page=products_edit&product_id=") ?><?= $product['id'] ?>" class="btn btn-sm btn-success" >
                           <i class="mdi mdi-grease-pencil"></i>
