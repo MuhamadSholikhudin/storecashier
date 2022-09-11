@@ -5,6 +5,7 @@ include 'function.php';
 if (isset($_GET['page'])) {
     $hal = $_GET['page'];
     switch ($hal) {
+
         case 'products':
             Page("product/index.php");
             break;
@@ -18,16 +19,18 @@ if (isset($_GET['page'])) {
             break;
 
         case 'transactions':
-                Page("transactions/index.php");
-                break;
+            Page("transactions/index.php");
+            break;
 
-                case 'transactions_add':
-                    Page("transactions/add.php");
-                    break;
+        case 'transactions_add':
+            Page("transactions/add.php");
+            break;
+        case 'transactions_edit':
+            Page("transactions/edit.php");
+            break;
 
         default:
-        Page("product/add.php");
-
+            Page("product/add.php");
             break;
     }
 } else {

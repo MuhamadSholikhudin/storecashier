@@ -244,51 +244,112 @@
           },
           dataType: "json",
           success: function(data) {
-            // $("#tablesearch").html(data);
-            // alert(data)
-
             document.getElementById("transaction_id").value = data[0];
             document.getElementById("name_buyer").value = data[1];
             document.getElementById("type_buyer").value = data[2];
-            document.getElementById("total_transactions").innerHTML = data[6] * data[7] * data[8];
+            document.getElementById("total_transactions").innerHTML = data[8];
 
-            var htmladdr = '<tr><td>' + name + '</td><td><input type="number" class="form-control qty" id="qty" data-cart_id="' + data[5] + '" data-price_id="' + data[4] + '" data-transaction_id="' + data[0] + '" min="1" min="1" value="' + data[5] + '" required=""></td><td><input type="number" name="price" id="cart_price' + data[5] + '" class="form-control umum" min="1" value="' + data[6] + '" required=""></td><td class="text-center"><input type="checkbox" name="check[]"  class="form-check-input" required=""> </td><td><input type="number" name="" class="form-control" min="1" id="cart_sum_price' + data[5] + '" value="' + data[6] * data[7] + '" required=""><input type="text" name="type[]" class="form-control type d-none" value="extend" required=""></td><td><input type="button" id="remove" name="remove" value="-" class="btn btn-danger"></td></tr>';
-
+            var htmladdr = '<tr><td>' + name + '</td><td><input type="number" class="form-control qty" id="qty" data-cart_id="' + data[4] + '" data-price_id="' + data[5] + '" data-transaction_id="' + data[0] + '" min="1" min="1" value="' + data[5] + '" required=""></td><td><input type="number" name="price" id="cart_price_transaction" class="form-control cart_price' + data[4] + '" min="1" value="' + data[6] + '" required=""></td><td class="text-center"><input type="checkbox" name="check[]"  class="form-check-input" required=""> </td><td><input type="number" name="" id="cart_sum_price_transaction" class="form-control cart_sum_price' + data[4] + '" data-id="' + data[4] + '" min="1" value="' + data[7] + '" required=""><input type="text" name="type[]" class="form-control type d-none" value="extend" required=""></td><td><input type="button" id="removeedittransaction" data-id="' + data[4] + '" name="remove" value="-" class="btn btn-danger"></td></tr>';
 
             $("#table_field_transactions").append(htmladdr);
+
+            if (transaction_id == 0) {
+              var urlLocation = "<?= Base_url('index.php?page=transactions_edit&transaction_id=') ?>" + data[0];
+              window.location.assign(urlLocation);
+            }
+
           },
           error() {
             alert("ERROR");
           },
         });
-
-
-        $("#table_field_transactions").on('change', '.qty', function() {
-        
-          var price_id = $(this).data('price_id');
-          var cart_id = $(this).data('cart_id');
-          var transaction_id = $(this).data('transaction_id');
-
-          // alert(price_id + cart_id + transaction_id);
-
-
-          var cart_price = "cart_price"+cart_id;
-          var cart_sum_price = "cart_sum_price"+cart_id;
-
-          console.log(cart_price);
-          console.log(cart_sum_price);
-
-          document.getElementById(cart_price).value = cart_id*100;
-          document.getElementById(cart_sum_price).value = cart_id*200;
+      });
 
 
 
+      $("#table_field_transactions").on('change', '#qty', function() {
+
+        var transaction_id = $(this).data('transaction_id');
+        var type_buyer = document.getElementById("type_buyer").value;
+        var price_id = $(this).data('price_id');
+        var cart_id = $(this).data('cart_id');
+        var qty = $(this).val();
+
+        var cart_price = ".cart_price" + cart_id;
+        var cart_sum_price = ".cart_sum_price" + cart_id;
+
+        $.ajax({
+          type: "POST",
+          url: "<?= Base_url('') ?>/transactions/ajax.php",
+          data: {
+            transaction_id: transaction_id,
+            type_buyer: type_buyer,
+            price_id: price_id,
+            cart_id: cart_id,
+            qty: qty
+          },
+          dataType: "json",
+          success: function(data) {
+
+            $(cart_price).val(data[0])
+            $(cart_sum_price).val(data[1])
+            document.getElementById("total_transactions").innerHTML = data[2];
+          },
+          error() {
+            alert("ERROR");
+          },
         });
+      });
 
 
+      $("#table_field_transactions").on('change', '#cart_sum_price_transaction', function() {
+
+        var cart_sum_price_id = $(this).data('id');
+        var val = $(this).val();
+        var transaction_id = document.getElementById("transaction_id").value;
+
+        $.ajax({
+          type: "POST",
+          url: "<?= Base_url('') ?>/transactions/ajax.php",
+          data: {
+            cart_sum_price_id: cart_sum_price_id,
+            val: val,
+            transaction_id: transaction_id
+          },
+          dataType: "json",
+          success: function(data) {
+            document.getElementById("total_transactions").innerHTML = data[0];
+          },
+          error() {
+            alert("ERROR");
+          },
+        });
+      });
+
+      $("#table_field_transactions").on('click', '#removeedittransaction', function() {
+
+        var cart_delete_id = $(this).data('id');
+
+        // alert(cart_delete_id);
+
+        $.ajax({
+          type: "POST",
+          url: "<?= Base_url('') ?>/transactions/ajax.php",
+          data: {
+            cart_delete_id: cart_delete_id
+          },
+          dataType: "json",
+          success: function(data) {
+            // alert(data);
+            document.getElementById("total_transactions").innerHTML = data[0];
+          },
+          error() {
+            alert("ERROR");
+          },
+        });
+        $(this).closest('tr').remove();
       });
     </script>
-
 
     <!-- endinject -->
     <!-- Custom js for this page-->
