@@ -22,6 +22,10 @@
                   <label for="barcode">Barcode </label>
                   <input type="text" class="form-control" name="barcode" id="barcode" placeholder="Barcode" required>
                 </div>
+<div class="form-group">
+                  <label for="price">Harga</label>
+                  <input type="number" class="form-control" name="price" id="price" min="1" value="1" placeholder="Price" required>
+                </div>
 
             </div>
           </div>
