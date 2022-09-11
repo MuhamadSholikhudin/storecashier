@@ -64,13 +64,15 @@
           var name_product = document.getElementById("name_product");
           var abbreviation = document.getElementById("abbreviation");
           var barcode = document.getElementById("barcode");
+          var price = document.getElementById("price");
+
 
           var awal = document.getElementsByClassName("awal");
           var akhir = document.getElementsByClassName("akhir");
           var umum = document.getElementsByClassName("umum");
           var pelanggan = document.getElementsByClassName("pelanggan");
 
-          if (name_product.value == "" || abbreviation.value == "" || barcode.value == "") {
+          if (name_product.value == "" || abbreviation.value == "" || barcode.value == "" || price.value) {
             alert("Inputan Harus Di isi !");
             return false;
           } else {
@@ -81,6 +83,7 @@
                 name_product: name_product.value,
                 abbreviation: abbreviation.value,
                 barcode: barcode.value,
+                price: price
               },
               dataType: "json",
               success: function(data) {
@@ -124,6 +127,47 @@
 
           }
         });
+
+
+$('#search_product').keydown(function () {
+ var search_product = document.getElementById("search_product").value;
+
+           $.ajax({
+              type: "POST",
+              url: "<?= Base_url('') ?>/product/ajax.php",
+              data: {
+                search_product: search_product
+              },
+              dataType: "json",
+              success: function(data) {
+                $('#tbody_product').html(data)
+              },
+              error() {
+                alert("ERROR");
+              },
+            });
+});
+
+$('#search_product').keyup(function () {
+ var search_product = document.getElementById("search_product").value;
+
+           $.ajax({
+              type: "POST",
+              url: "<?= Base_url('') ?>/product/ajax.php",
+              data: {
+                search_product: search_product
+              },
+              dataType: "json",
+              success: function(data) {
+                $('#tbody_product').html(data)
+              },
+              error() {
+                alert("ERROR");
+              },
+            });
+});
+
+
 
         $("#editproduct").click(function() {
           var product_id = document.getElementById("product_id");
