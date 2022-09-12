@@ -18,13 +18,13 @@
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="<?= Base_url(
-                    'template/'
-                  ) ?>vendors/js/vendor.bundle.base.js"></script>
+        'template/'
+    ) ?>vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="<?= Base_url(
-                    'template/'
-                  ) ?>vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        'template/'
+    ) ?>vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="<?= Base_url('template/') ?>js/off-canvas.js"></script>
@@ -37,7 +37,7 @@
     <script type="text/javascript">
       $(document).ready(function() {
 
-        var html = '<tr><td><input type="number" name="awal[]" class="form-control awal" min="1" value="1" required=""></td><td><input type="number" name="akhir[]" class="form-control akhir" min="1" value="1" required=""></td><td><input type="number" name="umum[]" class="form-control umum" min="1" value="1" required=""></td><td><input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required=""><input type="text" name="type[]" class="form-control type d-none" value="extend" required=""></td><td><input type="button" id="remove" name="remove" value="-" class="btn btn-danger"></td></tr>';
+        var html = '<tr><td><input type="number" name="awal[]" class=" awal" min="1" value="1" required=""></td><td><input type="number" name="akhir[]" class=" akhir" min="1" value="1" required=""></td><td><input type="number" name="umum[]" class=" umum" min="1" value="1" required=""></td><td><input type="number" name="pelanggan[]" class=" pelanggan" min="1" value="1" required=""><input type="text" name="type[]" class=" type d-none" value="extend" required=""></td><td><input type="button" id="remove" name="remove" value="-" class="btn btn-danger"></td></tr>';
         var x = 1;
 
         $("#add").click(function() {
@@ -72,7 +72,7 @@
           var umum = document.getElementsByClassName("umum");
           var pelanggan = document.getElementsByClassName("pelanggan");
 
-          if (name_product.value == "" || abbreviation.value == "" || barcode.value == "" || price.value) {
+          if (name_product.value == "" || abbreviation.value == "" || barcode.value == "" ) {
             alert("Inputan Harus Di isi !");
             return false;
           } else {
@@ -83,7 +83,7 @@
                 name_product: name_product.value,
                 abbreviation: abbreviation.value,
                 barcode: barcode.value,
-                price: price
+                price: price.value
               },
               dataType: "json",
               success: function(data) {
@@ -98,7 +98,7 @@
           }
         });
 
-        var htmledit = '<tr><td><input type="number" name="product_id[]" class="form-control d-none product_id" value="0" required=""><input type="number" name="price_id[]" class="form-control d-none price_id" value="0" required=""><input type="number" name="awal[]" class="form-control awal" min="1" value="1" required=""></td><td><input type="number" name="akhir[]" class="form-control akhir" min="1" value="1" required=""></td><td><input type="number" name="umum[]" class="form-control umum" min="1" value="1" required=""></td><td><input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required=""></td><td><input type="button" id="removeedit" name="removeedit" value="-" data-id="0" class="btn btn-danger"></td></tr>';
+        var htmledit = '<tr><td><input type="number" name="product_id[]" class=" d-none product_id" value="0" required=""><input type="number" name="price_id[]" class=" d-none price_id" value="0" required=""><input type="number" name="awal[]" class=" awal" min="1" value="1" required=""></td><td><input type="number" name="akhir[]" class=" akhir" min="1" value="1" required=""></td><td><input type="number" name="umum[]" class=" umum" min="1" value="1" required=""></td><td><input type="number" name="pelanggan[]" class=" pelanggan" min="1" value="1" required=""></td><td><input type="button" id="removeedit" name="removeedit" value="-" data-id="0" class="btn btn-danger"></td></tr>';
         $("#addedit").click(function() {
           $("#table_field").append(htmledit);
         });
@@ -129,9 +129,8 @@
         });
 
 
-$('#search_product').keydown(function () {
- var search_product = document.getElementById("search_product").value;
-
+        $('#search_product').keyup( function () {
+           var search_product = document.getElementById("search_product").value;
            $.ajax({
               type: "POST",
               url: "<?= Base_url('') ?>/product/ajax.php",
@@ -146,11 +145,12 @@ $('#search_product').keydown(function () {
                 alert("ERROR");
               },
             });
-});
 
-$('#search_product').keyup(function () {
- var search_product = document.getElementById("search_product").value;
+        });
 
+
+        $('#search_product').keydown( function () {
+           var search_product = document.getElementById("search_product").value;
            $.ajax({
               type: "POST",
               url: "<?= Base_url('') ?>/product/ajax.php",
@@ -165,9 +165,8 @@ $('#search_product').keyup(function () {
                 alert("ERROR");
               },
             });
-});
 
-
+        });
 
         $("#editproduct").click(function() {
           var product_id = document.getElementById("product_id");

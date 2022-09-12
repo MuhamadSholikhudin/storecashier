@@ -6,12 +6,12 @@ if (isset($_POST['product_id'])) {
     $updated_at = date("Y-m-d H:i:s");
 
     $query = "UPDATE  products SET
-    name_product = '" . $_POST['name_product'] . "', 
-    abbreviation = '" . $_POST['abbreviation'] . "', 
-    barcode = '" . $_POST['barcode'] . "', 
-    updated_at= '" . $updated_at . "'
-    WHERE id = ".$_POST['product_id']."
-    ";
+          name_product = '" . $_POST['name_product'] . "', 
+          abbreviation = '" . $_POST['abbreviation'] . "', 
+          barcode = '" . $_POST['barcode'] . "', 
+          updated_at= '" . $updated_at . "'
+          WHERE id = ".$_POST['product_id']."
+        ";
 
     mysqli_query($koneksi, $query);
     echo json_encode($query);
@@ -19,47 +19,45 @@ if (isset($_POST['product_id'])) {
 // Search product
 elseif(isset($_POST['search_product'])){
 
-//Cari product
+    $count_product = querysatudata(" SELECT COUNT(id) as count FROM products WHERE name_product LIKE '%".$_POST['search_product']."%' OR barcode LIKE '%".$_POST['search_product']."%' "); 
+    
+    $product_loop = '';
+    
+    if($count_product['count'] > 0){
 
-$count_product = querysatudata(" SELECT COUNT(id) as count FROM products WHERE  name_product LIKE '%".$_POST['search_product']."%' OR barcode LIKE '%".$_POST['search_product']."%' "); 
-if($count_product['count'] > 0){
+        $products = querybanyak("SELECT * FROM products WHERE name_product LIKE '%".$_POST['search_product']."%' OR barcode LIKE '%".$_POST['search_product']."%'  "); 
 
-$product_loop = '';
-$products = querybanyak("SELECT *  products  
-                    WHERE LIKE name_product '%".$_POST['search_product']."%' OR LIKE barcode '%".$_POST['search_product']."%' 
-                    LIMIT 20");
+        foreach($products as $product){
+        $product_loop .= '
+        <tr>
+          <td>'.$product['name_product'] .'</td>
+          <td>'.$product['abbreviation'].'</td>
+          <td>'.$product['barcode'].'</td>
+          <td>'.$product['price'].'</td>
+          <td>
+            <a href="'.Base_url('index.php?page=products_edit&product_id=') . $product['id'] .'" class="btn btn-sm btn-success" >
+              <i class="mdi mdi-grease-pencil"></i>
+            </a>
 
-                    foreach($products as $product){
-                    $product_loop .= '
-                    <tr>
-                      <td>'.$product['name_product'] .'</td>
-                      <td>'.$product['abbreviation'].'</td>
-                      <td>'.$product['barcode'].'</td>
-                      <td>'.$product['price'].'</td>
-                      <td>
-                        <a href="'.Base_url('index.php?page=products_edit&product_id=') . $product['id'] .'" class="btn btn-sm btn-success" >
-                          <i class="mdi mdi-grease-pencil"></i>
-                        </a>
+            <a href="" class="btn btn-sm btn-success" >
+              <i class="mdi mdi-eye"></i>
+            </a>
+          </td>
+        </tr>';
+        
+        }
 
-                        <a href="" class="btn btn-sm btn-success" >
-                          <i class="mdi mdi-eye"></i>
-                        </a>
-                      </td>
-                    </tr>';
-                    
-                    }
+    }else{
+          $product_loop = '<tr>
+              <td> </td>
+              <td> </td>
+              <td> Tidak ada </td>
+              <td> </td>
+              <td> </td>
+            </tr>';
+    }
 
-}else{
-$product_loop = '<tr>
-<td> </td>
-<td> </td>
-<td> Tidak ada </td>
-<td> </td>
-<td> </td>
-</tr>';
-}
-
-echo json_encode($product_loop);
+    echo json_encode($product_loop);
 }
 
 

@@ -22,7 +22,7 @@
                   <label for="barcode">Barcode </label>
                   <input type="text" class="form-control" name="barcode" id="barcode" placeholder="Barcode" required>
                 </div>
-<div class="form-group">
+                <div class="form-group">
                   <label for="price">Harga</label>
                   <input type="number" class="form-control" name="price" id="price" min="1" value="1" placeholder="Price" required>
                 </div>
@@ -37,38 +37,12 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Harga Produk form</h4>
-              <p class="card-description">
-              <!-- <form action="<?= Base_url('product/add.php') ?>" method="post">
-
-                <input type="number" id="member" name="countextend" value="0" placeholder="Tambahkan harga Produk">
-                <button type="submit" name="forinput" class="btn btn-sm btn-primary" id="filldetails" >+</button>
-                <input type="number" id="stateless" name="memberx"  value="0" />
-
-              </form>
-
-
-              </p>
-              <div>
-                <input type="text" class="sdf" style="width:70px;" value="awal" disabled>
-                <input type="text" class="sdf" style="width:70px;" value="akhir" disabled>
-                <input type="text" class="sdf" style="width:100px;" value="umum" disabled>
-                <input type="text" class="sdf" style="width:100px;" value="pelanggan" disabled>
-
-              </div>
-
-              <div>
-                <input type="number" name="awal[]" style="width:70px;" required>
-                <input type="number" name="akhir[]" style="width:70px;" required>
-                <input type="number" name="umum[]" style="width:100px;" required>
-                <input type="number" name="pelanggan[]" style="width:100px;" required>
-                
-                <span id="kjh">Default</span>
-              </div>
-
-              <br> -->
+             
 
               <form name="myAddProduct" class="forms-sample" action="<?= Base_url("product/action.php") ?>" method="POST" enctype="multipart/form-data">
-              <table  id="table_field">
+              <div class="table-responsive">
+
+              <table class="table table-striped" id="table_field">
                 <tr>
                   <th>Awal</th>
                   <th>Akhir</th>
@@ -77,16 +51,19 @@
                   <th>Action</th>
                 </tr>
                 <tr>
-                  <td><input type="text" name="awal[]" class="form-control awal" min="1" value="1" required=""></td>
-                  <td><input type="number" name="akhir[]" class="form-control akhir" min="1" value="1" required=""></td>
-                  <td><input type="number" name="umum[]" class="form-control umum" min="1" value="1" required=""></td>
+                  <td><input type="text" name="awal[]" class=" awal" min="1" value="1" required=""></td>
+                  <td><input type="number" name="akhir[]" class=" akhir" min="1" value="1" required=""></td>
+                  <td><input type="number" name="umum[]" class=" umum" min="1" value="1" required=""></td>
                   <td>
-                    <input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="1" required="">
-                    <input type="text" name="type[]" class="form-control type d-none" value="default" required="">
+                    <input type="number" name="pelanggan[]" class=" pelanggan" min="1" value="1" required="">
+                    <input type="text" name="type[]" class=" type d-none" value="default" required="">
                   </td>
                   <td><input type="button" id="add" name="add" value="+" class="btn btn-success"></td>
                 </tr>
               </table>
+              </div>
+              <br>
+
               <input class="btn btn-warning d-none" type="submit" name="save" id="save" value="Save Data">
 
               </form>
