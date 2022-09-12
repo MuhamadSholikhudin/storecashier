@@ -9,8 +9,6 @@ if (isset($_POST)) {
         $created_at = date('Y-m-d H:i:s');
 
         $updated_at = $created_at;
-        print '<pre>' . print_r($_POST, true) . '</pre>';
-
 
         $c_awal = count($_POST['awal']);
 

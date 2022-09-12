@@ -28,6 +28,9 @@ if (isset($_GET['page'])) {
         case 'transactions_edit':
             Page("transactions/edit.php");
             break;
+        case 'transactions_print':
+            include "transactions/print.php";
+            break;
 
         default:
             Page("product/add.php");

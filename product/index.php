@@ -26,9 +26,9 @@
                 <div class="form-group">
                     <div class="input-group">
                       <input type="text" id="search_product" class="form-control" placeholder="Cari Produk" aria-label="Cari products">
-                      <div class="input-group-append">
+                      <!-- <div class="input-group-append">
                         <button class="btn btn-sm btn-primary" type="button">Search</button>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
 
@@ -39,10 +39,11 @@
                   <thead>
                     <tr>
                       <th>Nama Produk</th>
+                      <th>Harga</th>
+                      <th>Ket</th>
                       <th>Nama Singkat</th>
                       <th>Barcode</th>
-                      <th>Harga</th>
-                      <th> Aksi</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody id="tbody_product">
@@ -54,17 +55,18 @@
                     ?>
                     <tr>
                       <td><?= $product['name_product'] ?></td>
+                      <td><?= $product['price'] ?></td>
+                      <td><?= $product['contain'] ?></td>
                       <td><?= $product['abbreviation'] ?></td>
                       <td><?= $product['barcode'] ?></td>
-                      <td><?= $product['price'] ?></td>
                       <td>
                         <a href="<?= Base_url("index.php?page=products_edit&product_id=") ?><?= $product['id'] ?>" class="btn btn-sm btn-success" >
                           <i class="mdi mdi-grease-pencil"></i>
                         </a>
 
-                        <a href="" class="btn btn-sm btn-success" >
+                        <!-- <a href="" class="btn btn-sm btn-success" >
                           <i class="mdi mdi-eye"></i>
-                        </a>
+                        </a> -->
                       </td>
                     </tr>
                     <?php

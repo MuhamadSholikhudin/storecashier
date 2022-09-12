@@ -9,6 +9,8 @@ if (isset($_POST['product_id'])) {
           name_product = '" . $_POST['name_product'] . "', 
           abbreviation = '" . $_POST['abbreviation'] . "', 
           barcode = '" . $_POST['barcode'] . "', 
+          price = " . $_POST['price'] . ", 
+          contain = '" . $_POST['contain'] . "', 
           updated_at= '" . $updated_at . "'
           WHERE id = ".$_POST['product_id']."
         ";
@@ -31,20 +33,16 @@ elseif(isset($_POST['search_product'])){
         $product_loop .= '
         <tr>
           <td>'.$product['name_product'] .'</td>
+          <td>'.$product['price'].'</td>
+          <td>'.$product['contain'].'</td>
           <td>'.$product['abbreviation'].'</td>
           <td>'.$product['barcode'].'</td>
-          <td>'.$product['price'].'</td>
           <td>
             <a href="'.Base_url('index.php?page=products_edit&product_id=') . $product['id'] .'" class="btn btn-sm btn-success" >
               <i class="mdi mdi-grease-pencil"></i>
             </a>
-
-            <a href="" class="btn btn-sm btn-success" >
-              <i class="mdi mdi-eye"></i>
-            </a>
           </td>
         </tr>';
-        
         }
 
     }else{
@@ -52,6 +50,7 @@ elseif(isset($_POST['search_product'])){
               <td> </td>
               <td> </td>
               <td> Tidak ada </td>
+              <td> </td>
               <td> </td>
               <td> </td>
             </tr>';
@@ -73,9 +72,9 @@ elseif(isset($_POST['price_id'])){
 
     $updated_at = $created_at;
 
-    $query = "INSERT INTO products (name_product, abbreviation, barcode, price, created_at, updated_at) VALUES 
+    $query = "INSERT INTO products (name_product, abbreviation, barcode, price, contain, created_at, updated_at) VALUES 
     (
-        '" . $_POST['name_product'] . "', '" . $_POST['abbreviation'] . "', '" . $_POST['barcode'] . "', ".$_POST['price']." ,'" . $created_at . "', '" . $updated_at . "'
+        '" . $_POST['name_product'] . "', '" . $_POST['abbreviation'] . "', '" . $_POST['barcode'] . "', ".$_POST['price']." , '" . $_POST['contain'] . "', '" . $created_at . "', '" . $updated_at . "'
     )";
 
     mysqli_query($koneksi, $query);

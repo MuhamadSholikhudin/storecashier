@@ -6,12 +6,14 @@
         <div class="col-md-4 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Produk form</h4>
+              <h4 class="card-title">Produk form
+                
+             </h4>
               <p class="card-description">
                 Isi Data Transaksi Dengan Benar
 
-                <input type="text"  class="form-control" name="" id="transaction_id" value="0">
-                <input type="text"  class="form-control" name="" id="name_buyer" value="0">
+                <input type="text"  class="form-control d-none" name="" id="transaction_id" value="0">
+                <input type="text"  class="form-control d-none" name="" id="name_buyer" value="0">
 
                 <select name="" id="type_buyer" class="form-control" >
                   <option value="umum">umum</option>
@@ -21,22 +23,19 @@
               <div class="form-group">
                 <div class="input-group">
                   <input type="text" class="form-control" id="searchproducttransactions" placeholder="Cari Produk" aria-label="Recipient's username">
-                  <div class="input-group-append">
+                  <!-- <div class="input-group-append">
                     <button class="btn btn-sm btn-primary" onclick="myFunction()" type="button">Search</button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
-              <table id="tablesearch">
-                <!-- <tr>
-                  <td><input type="number" class="form-control" name="price_id" id="searchprice_id"></td>
-                  <td><input type="number" class="form-control" name="qty" min="1" id="search"></td>
-                  <td><input type="number" class="form-control" name="price_default" id="searchprice_default"></td>
-                  <td><input type="number" class="form-control d-none" name="transaction_id" id="searchtransaction_id">
-                      <input type="button" name="addtransactions" id="addtransactions" value="+">
-                  </td>
-                </tr> -->
+              <div class="table-responsive">
+
+              <table class="table table-striped" id="tablesearch">
+           
+
               </table>
+              </div>
 
             </div>
           </div>

@@ -26,6 +26,10 @@
                   <label for="price">Harga</label>
                   <input type="number" class="form-control" name="price" id="price" min="1" value="1" placeholder="Price" required>
                 </div>
+                <div class="form-group">
+                  <label for="price">Ket</label>
+                  <input type="text" class="form-control" name="contain" id="contain" min="1" value="1" placeholder="Ketearang" required>
+                </div>
 
             </div>
           </div>
@@ -51,11 +55,11 @@
                   <th>Action</th>
                 </tr>
                 <tr>
-                  <td><input type="text" name="awal[]" class=" awal" min="1" value="1" required=""></td>
-                  <td><input type="number" name="akhir[]" class=" akhir" min="1" value="1" required=""></td>
-                  <td><input type="number" name="umum[]" class=" umum" min="1" value="1" required=""></td>
+                  <td><input type="text" name="awal[]" class=" awal" min="1" style="width: 80px;" value="1" required=""></td>
+                  <td><input type="number" name="akhir[]" class=" akhir" min="1" value="1" style="width: 80px;" required=""></td>
+                  <td><input type="number" name="umum[]" class=" umum" min="1" value="1" style="width: 100px;" required=""></td>
                   <td>
-                    <input type="number" name="pelanggan[]" class=" pelanggan" min="1" value="1" required="">
+                    <input type="number" name="pelanggan[]" class=" pelanggan"  min="1" style="width: 100px;" value="1" required="">
                     <input type="text" name="type[]" class=" type d-none" value="default" required="">
                   </td>
                   <td><input type="button" id="add" name="add" value="+" class="btn btn-success"></td>

@@ -30,6 +30,14 @@
                   <label for="barcode">Barcode </label>
                   <input type="text" class="form-control" name="barcode" id="barcode" value="<?= $product['barcode'] ?>" placeholder="Barcode" required>
                 </div>
+                <div class="form-group">
+                  <label for="barcode">Harga </label>
+                  <input type="number" class="form-control" name="price" id="price" value="<?= $product['price'] ?>" min="1" required>
+                </div>
+                <div class="form-group">
+                  <label for="barcode">Ket </label>
+                  <input type="text" class="form-control" name="contain" id="contain" value="<?= $product['contain'] ?>" placeholder="contains" required>
+                </div>
 
             </div>
           </div>
@@ -46,7 +54,10 @@
               <form name="myAddProduct" class="forms-sample" action="<?= Base_url(
                   'product/action.php'
               ) ?>" method="POST" enctype="multipart/form-data">
-              <table  id="table_field">
+
+              <div class="table-responsive">
+
+              <table class="table table-striped" id="table_field">
                 <tr>
                   <th>Awal</th>
                   <th>Akhir</th>
@@ -60,13 +71,13 @@
                 ?>
                 <tr >
                   <td>
-                    <input type="number" name="product_id[]" class="form-control product_id d-none" min="1" value="<?= $price['product_id'] ?>" required="">
-                    <input type="number" name="price_id[]" class="form-control product_id d-none" min="1" value="<?= $price['id'] ?>" required="">
-                    <input type="number" name="awal[]" class="form-control awal" min="1" value="<?= $price['awal'] ?>" required="">
+                    <input type="number" name="product_id[]" class=" product_id d-none" min="1"  value="<?= $price['product_id'] ?>" required="">
+                    <input type="number" name="price_id[]" class=" product_id d-none" min="1" value="<?= $price['id'] ?>" required="">
+                    <input type="number" name="awal[]" class=" awal" min="1" style="width: 80px;" value="<?= $price['awal'] ?>" required="">
                   </td>
-                  <td><input type="number" name="akhir[]" class="form-control akhir" min="1" value="<?= $price['akhir'] ?>" required=""></td>
-                  <td><input type="number" name="umum[]" class="form-control umum" min="1" value="<?= $price['umum'] ?>" required=""></td>
-                  <td><input type="number" name="pelanggan[]" class="form-control pelanggan" min="1" value="<?= $price['pelanggan'] ?>" required=""></td>
+                  <td><input type="number" name="akhir[]" class=" akhir" min="1" style="width: 80px;" value="<?= $price['akhir'] ?>" required=""></td>
+                  <td><input type="number" name="umum[]" class=" umum" min="1" style="width: 100px;" value="<?= $price['umum'] ?>" required=""></td>
+                  <td><input type="number" name="pelanggan[]" class=" pelanggan" style="width: 100px;" min="1" value="<?= $price['pelanggan'] ?>" required=""></td>
                   <td>
                     <?php if($price['type'] == 'default'){ ?>
                       <input type="button" id="addedit" name="addedit" value="+" class="btn btn-success">
@@ -79,6 +90,8 @@
                   }
                 ?>
               </table>
+              </div>
+
               <input class="btn btn-warning d-none" type="submit" name="edit" id="save" value="updateprices">
 
               </form>

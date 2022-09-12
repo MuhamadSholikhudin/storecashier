@@ -3,59 +3,53 @@ include '../function.php';
 
 if (isset($_POST['keyword'])) {
 
-    $count_query_keyword = querysatudata("SELECT count(products.id) as id FROM products LEFT JOIN productprices ON products.id = productprices.product_id  WHERE productprices.type = 'default' AND (  products.name_product  LIKE '%" . $_POST['keyword'] . "%' OR products.barcode LIKE '%" . $_POST['keyword'] . "%') ");
-
-    if ($count_query_keyword['id'] > 0) {
-
-        // $query_keyword = querysatudata("SELECT products.id as product_id, productprices.id as price_id FROM products JOIN productprices ON products.id = productprices.product_id WHERE products.name_product  LIKE '%".$_POST['keyword']."%' OR products.barcode LIKE '%".$_POST['keyword']."%'  ");
-        $query_keyword = querybanyak("SELECT products.id as product_id, products.name_product, productprices.id as price_id, productprices.umum FROM products LEFT JOIN productprices ON products.id = productprices.product_id  WHERE productprices.type = 'default' AND (  products.name_product  LIKE '%" . $_POST['keyword'] . "%' OR products.barcode LIKE '%" . $_POST['keyword'] . "%') ");
-
-
-
-        $product_loop = '';
-        $product_loop .= '
-        <tr>
-        <td>Nama</td>
-        <td>Qty</td>
-        <td>Harga</td>
-        <td>Action
-        </td>
-      </tr>
-        ';
-
-        foreach ($query_keyword as $product) {
-
-            $product_loop .= '
-            <tr>
-            <td>' . $product['name_product'] . '<input type="text" class="form-control d-none" name="price_id" id="searchprice_id" value=""></td>
-            <td><input type="number" class="form-control" name="qty" min="1" value="1" id="qty"></td>
-            <td><input type="number" class="form-control" name="price_default" id="searchprice_default" value="' . $product['umum'] . '"></td>
-            <td><input type="number" class="form-control d-none" name="transaction_id" id="searchtransaction_id" value="' . $product['price_id'] . '">
-                <input type="button" name="addtransactions" id="addtransactions" data-name="' . $product['name_product'] . '" data-id="' . $product['price_id'] . '" value="+" onclick="at">
-            </td>
-          </tr>
-            ';
-        }
-
-        // $data = [$count_query_keyword['id'], $product_loop, $query_keyword['price_id']];
-
-        // $data = [$count_query_keyword['id'], 0, 0];
-        $data = [$product_loop];
-    } else {
-        // $data = [$count_query_keyword['id'], 0, 0];
-
-        $product_loop = '<tr>
-        <td>Tidak Adak</td>
-        <td></td>
-        <td></td>
-        <td></td>
+    if($_POST['keyword'] == ""){
+            $product_loop = '<tr>
+            <td>Tidak Ditemukan</td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>';
 
         $data = [$product_loop];
+    }else{
+        $count_query_keyword = querysatudata("SELECT count(products.id) as id FROM products LEFT JOIN productprices ON products.id = productprices.product_id  WHERE productprices.type = 'default' AND (  products.name_product  LIKE '%" . $_POST['keyword'] . "%' OR products.barcode LIKE '%" . $_POST['keyword'] . "%') ");
+        if ($count_query_keyword['id'] > 0) {
+            $query_keyword = querybanyak("SELECT products.id as product_id, products.name_product, productprices.id as price_id, productprices.umum FROM products LEFT JOIN productprices ON products.id = productprices.product_id  WHERE productprices.type = 'default' AND (  products.name_product  LIKE '%" . $_POST['keyword'] . "%' OR products.barcode LIKE '%" . $_POST['keyword'] . "%') LIMIT 5 ");
+            $product_loop = '';
+            $product_loop .= '
+                    <tr>
+                    <td>Nama</td>
+                    <td>Qty</td>
+                    <td>Harga</td>
+                    <td>Action
+                    </td>
+                </tr>
+                    ';
+            foreach ($query_keyword as $product) {
+                $product_loop .= '
+                    <tr>
+                    <td>' . $product['name_product'] . '</td>
+                    <td><input type="number"  name="qty" min="1" value="1" id="qty" style="width: 40px;"></td>
+                    <td><input type="number" " name="price_default" id="searchprice_default" style="width:75px;" value="' . $product['umum'] . '"></td>
+                    <td><input type="number"  class="d-none" name="transaction_id" id="searchtransaction_id" value="' . $product['price_id'] . '">
+                        <input type="button" name="addtransactions" id="addtransactions" data-name="' . $product['name_product'] . '" data-id="' . $product['price_id'] . '" value="+" onclick="at">
+                    </td>
+                </tr>
+                    ';
+            }
+            $data = [$product_loop];
+        } else {
+            $product_loop = '<tr>
+                <td>Tidak Ditemukan</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>';
+            $data = [$product_loop];
+        }
     }
-
     echo json_encode($data);
-    // echo json_encode(1);
 } 
 
 //mengubah harga berdasarkan qty
@@ -67,7 +61,6 @@ elseif(isset($_POST['qty'])){
     // Menampilkan data productprice
     $productprice = querysatudata("SELECT * FROM productprices LEFT JOIN products ON products.id = productprices.product_id WHERE productprices.id=".$_POST['price_id']." ");
     
-
     //mencari price berdasarkan qty
     $count_price = querysatudata("SELECT count(id) as id FROM productprices WHERE product_id=".$productprice['product_id']." AND awal >= ".$_POST['qty']." AND akhir <= ".$_POST['qty']." ");
     if($count_price['id'] > 0 ){
@@ -101,11 +94,9 @@ elseif(isset($_POST['qty'])){
     //output = [ price, sum_price, total  ]
     $data = [$cart_price, $cart_sum_price, $total_cart['total_cart']];
 
-    // $data = [1, 2, 3];
-
     echo json_encode($data);
-
 }
+
 
 //Edit jumlah Sum price
 elseif(isset($_POST['cart_sum_price_id'])){
@@ -122,10 +113,52 @@ elseif(isset($_POST['cart_sum_price_id'])){
     mysqli_query($koneksi, $update_cart);
 
     $data = [$total_cart['total_cart']];
-    // $data = [1];
 
     echo json_encode($data);
+}
 
+//check
+elseif(isset($_POST['check'])){
+
+    if($_POST['check'] == "true"){
+        $checked = 1;
+    }else{
+        $checked = 0;
+    }
+    $update_check = "UPDATE carts SET checked = ".$checked." WHERE id =".$_POST['cart_id']."  ";
+    mysqli_query($koneksi, $update_check);
+    echo json_encode($_POST['check']);
+}
+
+//val_type_buyer
+elseif(isset($_POST['val_type_buyer'])){
+    $update_type_buyer = "UPDATE transactions SET type_buyer = '".$_POST['val_type_buyer']."' WHERE id =".$_POST['transaction_id']."  ";
+    mysqli_query($koneksi, $update_type_buyer);
+    echo json_encode($_POST['val_type_buyer']);
+}
+
+//val_name_buyer
+elseif(isset($_POST['val_name_buyer'])){
+    $update_name_buyer = "UPDATE transactions SET name_buyer = '".$_POST['val_name_buyer']."' WHERE id =".$_POST['transaction_id']."  ";
+    mysqli_query($koneksi, $update_name_buyer);
+    echo json_encode($_POST['val_name_buyer']);
+}
+
+
+//cash changes total
+elseif(isset($_POST['cash'])){
+
+    //changes 
+    $changes = 0;
+    if($_POST['cash'] == 0 OR $_POST['cash'] == ""){
+
+    }else{
+        $changes = ($_POST['cash']) - ($_POST['total']);
+    }
+
+    $update_transaction = "UPDATE transactions SET cash = ".$_POST['cash'].", changes=".$changes." WHERE id =".$_POST['transaction_id']."  ";
+    mysqli_query($koneksi, $update_transaction);
+    echo json_encode([$changes]);
 }
 
 //menghapus carts berdasarkan cart_id
@@ -152,6 +185,45 @@ elseif(isset($_POST['cart_delete_id'])){
     $data = [$total_now];
 
     echo json_encode($data);
+
+}
+
+//search transaction
+elseif(isset($_POST['search_transaction'])){
+
+    $count_transaction = querysatudata(" SELECT COUNT(id) as count FROM transactions WHERE name_buyer LIKE '%".$_POST['search_transaction']."%' OR created_at LIKE '%".$_POST['search_transaction']."%' "); 
+    
+    $transaction_loop = '';
+    
+    if($count_transaction['count'] > 0){
+
+        $transactions = querybanyak("SELECT * FROM transactions WHERE name_buyer LIKE '%".$_POST['search_transaction']."%' OR created_at LIKE '%".$_POST['search_transaction']."%'  "); 
+
+        foreach($transactions as $transaction){
+        $transaction_loop .= '
+        <tr>
+          <td>'.$transaction['name_buyer'] .'</td>
+          <td>'.$transaction['created_at'].'</td>
+          <td>'.$transaction['total'].'</td>
+          <td>'.$transaction['cash'].'</td>
+          <td>
+            <a href="'.Base_url('index.php?page=transactions_edit&transaction_id=') . $transaction['id'] .'" class="btn btn-sm btn-success" >
+              <i class="mdi mdi-grease-pencil"></i>
+            </a>
+          </td>
+        </tr>';
+        }
+
+    }else{
+          $transaction_loop = '<tr>
+              <td> </td>
+              <td> </td>
+              <td> Tidak ada </td>
+              <td> </td>
+              <td> </td>
+            </tr>';
+    }
+    echo json_encode($transaction_loop);
 
 }
 

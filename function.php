@@ -1,10 +1,12 @@
 <?php 
+date_default_timezone_set('Asia/Jakarta');
 
 function Base_url($urlparam)
 {
     $url = "http://localhost/storecashier/" . $urlparam;
     return $url;
 }
+
 
 function Page($page){
 

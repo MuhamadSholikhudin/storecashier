@@ -37,7 +37,7 @@
     <script type="text/javascript">
       $(document).ready(function() {
 
-        var html = '<tr><td><input type="number" name="awal[]" class=" awal" min="1" value="1" required=""></td><td><input type="number" name="akhir[]" class=" akhir" min="1" value="1" required=""></td><td><input type="number" name="umum[]" class=" umum" min="1" value="1" required=""></td><td><input type="number" name="pelanggan[]" class=" pelanggan" min="1" value="1" required=""><input type="text" name="type[]" class=" type d-none" value="extend" required=""></td><td><input type="button" id="remove" name="remove" value="-" class="btn btn-danger"></td></tr>';
+        var html = '<tr><td><input type="number" name="awal[]" class=" awal" min="1" style="width: 80px;" value="1" required=""></td><td><input type="number" name="akhir[]" class=" akhir" min="1" style="width: 80px;" style="width: 80px;" value="1" required=""></td><td><input type="number" name="umum[]" class=" umum" min="1" style="width: 100px;" value="1" required=""></td><td><input type="number" name="pelanggan[]" class=" pelanggan" min="1" style="width: 100px;" value="1" required=""><input type="text" name="type[]" class=" type d-none" value="extend" required=""></td><td><input type="button" id="remove" name="remove" value="-" class="btn btn-danger"></td></tr>';
         var x = 1;
 
         $("#add").click(function() {
@@ -54,7 +54,7 @@
           let abbreviation = document.forms["myAddProduct"]["abbreviation"].value;
           let barcode = document.forms["myAddProduct"]["barcode"].value;
 
-          if (name_product == "" || abbreviation == "" || barcode == "") {
+          if (name_product == "" || abbreviation == "" || barcode == "" ) {
             alert("Inputan Harus Di isi !");
             return false;
           }
@@ -65,6 +65,7 @@
           var abbreviation = document.getElementById("abbreviation");
           var barcode = document.getElementById("barcode");
           var price = document.getElementById("price");
+          var contain = document.getElementById("contain");
 
 
           var awal = document.getElementsByClassName("awal");
@@ -83,7 +84,8 @@
                 name_product: name_product.value,
                 abbreviation: abbreviation.value,
                 barcode: barcode.value,
-                price: price.value
+                price: price.value,
+                contain: contain.value,
               },
               dataType: "json",
               success: function(data) {
@@ -98,7 +100,7 @@
           }
         });
 
-        var htmledit = '<tr><td><input type="number" name="product_id[]" class=" d-none product_id" value="0" required=""><input type="number" name="price_id[]" class=" d-none price_id" value="0" required=""><input type="number" name="awal[]" class=" awal" min="1" value="1" required=""></td><td><input type="number" name="akhir[]" class=" akhir" min="1" value="1" required=""></td><td><input type="number" name="umum[]" class=" umum" min="1" value="1" required=""></td><td><input type="number" name="pelanggan[]" class=" pelanggan" min="1" value="1" required=""></td><td><input type="button" id="removeedit" name="removeedit" value="-" data-id="0" class="btn btn-danger"></td></tr>';
+        var htmledit = '<tr><td><input type="number" name="product_id[]" class=" d-none product_id" value="0" required=""><input type="number" name="price_id[]" class=" d-none price_id" value="0" required=""><input type="number" name="awal[]" class=" awal" min="1" style="width: 80px;" value="1" required=""></td><td><input type="number" name="akhir[]" class=" akhir" min="1" style="width: 80px;" value="1" required=""></td><td><input type="number" name="umum[]" class=" umum" min="1" style="width: 100px;" value="1" required=""></td><td><input type="number" name="pelanggan[]" class=" pelanggan" min="1" style="width: 100px;" value="1" required=""></td><td><input type="button" id="removeedit" name="removeedit" value="-" data-id="0" class="btn btn-danger"></td></tr>';
         $("#addedit").click(function() {
           $("#table_field").append(htmledit);
         });
@@ -165,7 +167,6 @@
                 alert("ERROR");
               },
             });
-
         });
 
         $("#editproduct").click(function() {
@@ -173,6 +174,8 @@
           var name_product = document.getElementById("name_product");
           var abbreviation = document.getElementById("abbreviation");
           var barcode = document.getElementById("barcode");
+          var price = document.getElementById("price");
+          var contain = document.getElementById("contain");
 
           if (name_product.value == "" || abbreviation.value == "" || barcode.value == "") {
             alert("Inputan Harus Di isi !");
@@ -189,6 +192,8 @@
                 name_product: name_product.value,
                 abbreviation: abbreviation.value,
                 barcode: barcode.value,
+                price: price.value,
+                contain: contain.value,
               },
               dataType: "json",
               success: function(data) {
@@ -241,13 +246,51 @@
 
     <!-- Transaction -->
     <script>
-      function myFunction() {
+      // function myFunction() {
 
+      //   var keyword = document.getElementById("searchproducttransactions").value;
+
+      //   if (keyword == "") {
+      //     alert("KOSONG");
+      //   } else {
+      //     $.ajax({
+      //       type: "POST",
+      //       url: "<?= Base_url('') ?>/transactions/ajax.php",
+      //       data: {
+      //         keyword: keyword
+      //       },
+      //       dataType: "json",
+      //       success: function(data) {
+      //         $("#tablesearch").html(data);
+      //       },
+      //       error() {
+      //         alert("ERROR");
+      //       },
+      //     });
+      //   }
+      // }
+
+      $("#searchproducttransactions").keyup( function() {
         var keyword = document.getElementById("searchproducttransactions").value;
+        $.ajax({
+          type: "POST",
+          url: "<?= Base_url('') ?>/transactions/ajax.php",
+          data: {
+            keyword: keyword
+          },
+          dataType: "json",
+          success: function(data) {
+            $("#tablesearch").html(data);
+          },
+          error() {
+            alert("ERROR");
+          },
+        });
+      });
 
-        if (keyword == "") {
-          alert("KOSONG");
-        } else {
+      
+      $("#searchproducttransactions").keyup( function() {
+          var keyword = document.getElementById("searchproducttransactions").value;
           $.ajax({
             type: "POST",
             url: "<?= Base_url('') ?>/transactions/ajax.php",
@@ -262,9 +305,7 @@
               alert("ERROR");
             },
           });
-        }
-      }
-
+      });
 
 
       $("#tablesearch").on('click', '#addtransactions', function() {
@@ -290,9 +331,9 @@
             document.getElementById("transaction_id").value = data[0];
             document.getElementById("name_buyer").value = data[1];
             document.getElementById("type_buyer").value = data[2];
-            document.getElementById("total_transactions").innerHTML = data[8];
+            document.getElementById("total_transactions").value = data[8];
 
-            var htmladdr = '<tr><td>' + name + '</td><td><input type="number" class="form-control qty" id="qty" data-cart_id="' + data[4] + '" data-price_id="' + data[5] + '" data-transaction_id="' + data[0] + '" min="1" min="1" value="' + data[5] + '" required=""></td><td><input type="number" name="price" id="cart_price_transaction" class="form-control cart_price' + data[4] + '" min="1" value="' + data[6] + '" required=""></td><td class="text-center"><input type="checkbox" name="check[]"  class="form-check-input" required=""> </td><td><input type="number" name="" id="cart_sum_price_transaction" class="form-control cart_sum_price' + data[4] + '" data-id="' + data[4] + '" min="1" value="' + data[7] + '" required=""><input type="text" name="type[]" class="form-control type d-none" value="extend" required=""></td><td><input type="button" id="removeedittransaction" data-id="' + data[4] + '" name="remove" value="-" class="btn btn-danger"></td></tr>';
+            var htmladdr = '<tr><td>' + name + '</td><td><input type="number" class="qty" id="qty" style="width:50px;" data-cart_id="' + data[4] + '" data-price_id="' + data[5] + '" data-transaction_id="' + data[0] + '" min="1" min="1" value="' + data[5] + '" required=""></td><td><input type="number" name="price" id="cart_price_transaction" class="cart_price' + data[4] + '" min="1" style="width:60px;" value="' + data[6] + '" required=""></td><td class="text-center"><input type="checkbox" name="check[]" data-id="' +data[4] +'" id="check" class="form-check-input" required=""> </td><td><input type="number" name="" id="cart_sum_price_transaction" class="cart_sum_price' + data[4] + '" style="width: 100px;" data-id="' + data[4] + '" min="1" value="' + data[7] + '" required=""><input type="text" name="type[]" class="form-control type d-none" value="extend" required=""></td><td><input type="button" id="removeedittransaction" data-id="' + data[4] + '" name="remove" value="-" class="btn btn-danger"></td></tr>';
 
             $("#table_field_transactions").append(htmladdr);
 
@@ -336,7 +377,7 @@
 
             $(cart_price).val(data[0])
             $(cart_sum_price).val(data[1])
-            document.getElementById("total_transactions").innerHTML = data[2];
+            document.getElementById("total_transactions").value = data[2];
           },
           error() {
             alert("ERROR");
@@ -361,7 +402,7 @@
           },
           dataType: "json",
           success: function(data) {
-            document.getElementById("total_transactions").innerHTML = data[0];
+            document.getElementById("total_transactions").value = data[0];
           },
           error() {
             alert("ERROR");
@@ -370,11 +411,7 @@
       });
 
       $("#table_field_transactions").on('click', '#removeedittransaction', function() {
-
         var cart_delete_id = $(this).data('id');
-
-        // alert(cart_delete_id);
-
         $.ajax({
           type: "POST",
           url: "<?= Base_url('') ?>/transactions/ajax.php",
@@ -384,7 +421,7 @@
           dataType: "json",
           success: function(data) {
             // alert(data);
-            document.getElementById("total_transactions").innerHTML = data[0];
+            document.getElementById("total_transactions").value = data[0];
           },
           error() {
             alert("ERROR");
@@ -392,6 +429,151 @@
         });
         $(this).closest('tr').remove();
       });
+     
+      $('#search_transaction').keyup( function () {
+           var search_transaction = document.getElementById("search_transaction").value;         
+            $.ajax({
+              type: "POST",
+              url: "<?= Base_url('') ?>/transactions/ajax.php",
+              data: {
+                search_transaction: search_transaction
+              },
+              dataType: "json",
+              success: function(data) {
+                $('#tbody_transaction').html(data)
+              },
+              error() {
+                alert("ERROR");
+              },
+            });
+
+        });
+
+
+        $('#search_transaction').keydown( function () {
+           var search_transaction = document.getElementById("search_transaction").value;
+           $.ajax({
+              type: "POST",
+              url: "<?= Base_url('') ?>/transactions/ajax.php",
+              data: {
+                search_transaction: search_transaction
+              },
+              dataType: "json",
+              success: function(data) {
+                $('#tbody_transaction').html(data)
+              },
+              error() {
+                alert("ERROR");
+              },
+            });
+        });
+
+        $('#table_field_transactions').on('click', '#check', function(){
+          var check = $(this).prop("checked");
+          var cart_id = $(this).data("id");
+          $.ajax({
+              type: "POST",
+              url: "<?= Base_url('') ?>/transactions/ajax.php",
+              data: {
+                check: check,
+                cart_id:cart_id
+              },
+              dataType: "json",
+              success: function() {
+              },
+              error() {
+                alert("ERROR");
+              },
+            });
+        });
+
+        $("#type_buyer").on('change', function(){
+          var val_type_buyer = document.getElementById("type_buyer").value;
+          var transaction_id = document.getElementById("transaction_id").value;
+          $.ajax({
+              type: "POST",
+              url: "<?= Base_url('') ?>/transactions/ajax.php",
+              data: {
+                val_type_buyer: val_type_buyer,
+                transaction_id:transaction_id
+              },
+              dataType: "json",
+              success: function() {
+              },
+              error() {
+                alert("ERROR");
+              },
+            });
+        });
+
+
+        $("#name_buyer").on('change', function(){
+          var val_name_buyer = document.getElementById("name_buyer").value;
+          var transaction_id = document.getElementById("transaction_id").value;
+          $.ajax({
+              type: "POST",
+              url: "<?= Base_url('') ?>/transactions/ajax.php",
+              data: {
+                val_name_buyer: val_name_buyer,
+                transaction_id:transaction_id
+              },
+              dataType: "json",
+              success: function() {
+              },
+              error() {
+                alert("ERROR");
+              },
+            });
+        });
+
+
+        $("#cash").keydown( function(){
+          var transaction_id = document.getElementById("transaction_id").value;
+          var total = document.getElementById("total_transactions").value;
+          var cash = document.getElementById("cash").value;
+
+          $.ajax({
+              type: "POST",
+              url: "<?= Base_url('') ?>/transactions/ajax.php",
+              data: {
+                total: total,
+                cash: cash,
+                transaction_id:transaction_id
+              },
+              dataType: "json",
+              success: function(data) {
+                document.getElementById("changes").value = data[0];
+              },
+              error() {
+                alert("ERROR");
+              },
+            });
+   
+        });
+        $("#cash").keyup( function(){
+          var transaction_id = document.getElementById("transaction_id").value;
+          var total = document.getElementById("total_transactions").value;
+          var cash = document.getElementById("cash").value;
+
+          $.ajax({
+              type: "POST",
+              url: "<?= Base_url('') ?>/transactions/ajax.php",
+              data: {
+                total: total,
+                cash: cash,
+                transaction_id:transaction_id
+              },
+              dataType: "json",
+              success: function(data) {
+                document.getElementById("changes").value = data[0];
+              },
+              error() {
+                alert("ERROR");
+              },
+            });
+        });
+
+
     </script>
 
     <!-- endinject -->

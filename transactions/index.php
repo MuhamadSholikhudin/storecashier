@@ -25,10 +25,10 @@
                   
                 <div class="form-group">
                     <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Cari Produk" aria-label="Recipient's username">
-                      <div class="input-group-append">
+                      <input type="text" class="form-control" id="search_transaction" placeholder="Cari Transaction" aria-label="Recipient's username">
+                      <!-- <div class="input-group-append">
                         <button class="btn btn-sm btn-primary" type="button">Search</button>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
 
@@ -38,34 +38,28 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th>Nama Produk</th>
-                      <th>Nama Singkat</th>
-                      <th>Barcode</th>
-                      <th>Harga</th>
-                      <th> Aksi</th>
+                      <th>Nama </th>
+                      <th>Tanggal</th>
+                      <th>Total</th>
+                      <th>Tunai</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="tbody_transaction">
                     <?php 
-                    $products = querybanyak("SELECT products.id as id, products.name_product as name_product, products.abbreviation as abbreviation, products.barcode as barcode, productprices.umum as umum  FROM products 
-                    LEFT JOIN productprices ON products.id = productprices.product_id 
-                    WHERE productprices.type = 'default'
+                    $transactions = querybanyak("SELECT * FROM transactions
                     LIMIT 20");
 
-                    foreach($products as $product){
+                    foreach($transactions as $transaction){
                     ?>
                     <tr>
-                      <td><?= $product['name_product'] ?></td>
-                      <td><?= $product['abbreviation'] ?></td>
-                      <td><?= $product['barcode'] ?></td>
-                      <td><?= $product['umum'] ?></td>
+                      <td><?= $transaction['name_buyer'] ?></td>
+                      <td><?= $transaction['created_at'] ?></td>
+                      <td><?= $transaction['total'] ?></td>
+                      <td><?= $transaction['cash'] ?></td>
                       <td>
-                        <a href="<?= Base_url("index.php?page=products_edit&product_id=") ?><?= $product['id'] ?>" class="btn btn-sm btn-success" >
+                        <a href="<?= Base_url("index.php?page=transactions_edit&transaction_id=") ?><?= $transaction['id'] ?>" class="btn btn-sm btn-success" >
                           <i class="mdi mdi-grease-pencil"></i>
-                        </a>
-
-                        <a href="" class="btn btn-sm btn-success" >
-                          <i class="mdi mdi-eye"></i>
                         </a>
                       </td>
                     </tr>
